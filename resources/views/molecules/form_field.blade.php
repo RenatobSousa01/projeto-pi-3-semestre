@@ -7,6 +7,7 @@
         'name' => $name,
         'value' => $value ?? '',
         'required' => $required ?? false,
+        'step' => $step ?? null 
     ])
 
     {{-- Espaço para feedback de erro do Laravel --}}

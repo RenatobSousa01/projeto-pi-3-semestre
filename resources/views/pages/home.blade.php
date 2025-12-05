@@ -1,14 +1,21 @@
 @extends('layouts.app')
 
-@section('title', 'Página Inicial - E-commerce Hardware')
+@section('title', 'Bem-vindo à Loja de Hardware!')
 
 @section('content')
-    <div class="container">
-        <h1>Bem-vindo à Loja de Hardware!</h1>
-        <p>Se o CSS estiver funcionando, os botões abaixo serão coloridos.</p>
+    <div class="container" style="text-align: center;">
+        <h2>Destaques da Semana</h2>
+        <p>Confira nossos produtos mais recentes.</p>
+        <hr>
 
-        {{-- Passamos o texto do botão na chave 'text' --}}
-@include('atoms.button', ['type' => 'primary', 'text' => 'Ver Produtos (Primário)'])
-@include('atoms.button', ['type' => 'secondary', 'text' => 'Ver Carrinho (Secundário)'])
+        <div class="product-grid" style="text-align: center; margin-top: 30px;">
+            @forelse ($products as $product)
+                {{-- ✅ CHAMANDO A MOLÉCULA CARD PARA CADA PRODUTO --}}
+                @include('molecules.product_card', ['product' => $product])
+            @empty
+                <p>Nenhum produto em destaque no momento.</p>
+            @endforelse
+        </div>
+        
     </div>
 @endsection

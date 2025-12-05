@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        {{-- ✅ ESTA DEVE SER A PRIMEIRA COISA DENTRO DO CONTAINER --}}
         <h2>Área Administrativa</h2>
         <nav>
             <a href="{{ url('/') }}">Home</a> |
@@ -9,7 +10,7 @@
         </nav>
         <hr>
         
-        {{-- O conteúdo específico do formulário ou listagem entra aqui --}}
+        {{-- ✅ ESTE É O CONTEÚDO DA PÁGINA (A TABELA) --}}
         @yield('admin_content') 
     </div>
 @endsection

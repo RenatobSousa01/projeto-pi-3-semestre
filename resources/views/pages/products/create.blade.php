@@ -5,39 +5,44 @@
 @section('admin_content')
     <h3>Criar Novo Produto</h3>
 
-    <form action="{{ route('products.store') }}" method="POST">
-        @csrf {{-- Token de segurança obrigatório do Laravel --}}
+    {{-- ✅ ADICIONE O enctype para permitir o upload de arquivos --}}
+    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
 
-        {{-- 💡 Molécula para o Nome --}}
+        {{-- Nome --}}
         @include('molecules.form_field', [
             'label' => 'Nome do Produto', 
             'name' => 'name', 
             'required' => true
         ])
 
-        {{-- 💡 Molécula para o Preço --}}
+        {{-- Preço --}}
         @include('molecules.form_field', [
             'label' => 'Preço', 
             'name' => 'price', 
             'type' => 'number',
-            'required' => true
+            'required' => true,
+            'step' => '0.01' // Para centavos
         ])
 
-        {{-- 💡 Molécula para a Descrição (usando textarea, que é um átomo diferente, mas vamos usar o input por enquanto para simplificar) --}}
+        {{-- Descrição --}}
         @include('molecules.form_field', [
             'label' => 'Descrição', 
-            'name' => 'description',
+            'name' => 'description', 
+            'type' => 'textarea',
         ])
         
-        {{-- 💡 Molécula para o Caminho da Imagem (simulando upload) --}}
+        {{-- ✅ IMAGEM (COM SINTAXE CORRETA) --}}
         @include('molecules.form_field', [
-            'label' => 'Caminho da Imagem (Ex: images/produto.jpg)', 
-            'name' => 'image_path',
+            'label' => 'Imagem do Produto', // ✅ CORRIGIDO: Aspa simples de fechamento
+            'name' => 'image',
+            'type' => 'file',
         ])
 
+        {{-- Botão de Submissão --}}
         <div class="mt-4">
-            {{-- Botão de Submissão --}}
             @include('atoms.button', ['type' => 'primary', 'html_type' => 'submit', 'text' => 'Salvar Produto'])
         </div>
+
     </form>
 @endsection

@@ -5,4 +5,5 @@
     value="{{ old($name, $value ?? '') }}" 
     class="form-input {{ $class ?? '' }}"
     {{ $required ?? false ? 'required' : '' }}
+    step="{{ $step ?? '' }}"
 >

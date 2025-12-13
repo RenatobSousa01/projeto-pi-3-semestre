@@ -8,21 +8,20 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('Home') }}
-                    </x-nav-link>
-                    
-                    @auth
-                        <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
-                            {{ __('Admin') }}
-                        </x-nav-link>
-                    @endauth
-                    
-                    <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
-                        {{ __('Carrinho') }}
-                    </x-nav-link>
-                </div>
-            </div>
+    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+        {{ __('Home') }}
+    </x-nav-link>
+
+        @auth
+            <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
+            {{ __('Admin (CRUD Produtos)') }}
+            </x-nav-link>
+        @endauth
+    
+            <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
+                {{ __('Carrinho') }}
+            </x-nav-link>
+        </div>
 
             @guest
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

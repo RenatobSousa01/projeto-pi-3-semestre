@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\CheckoutController;
+// Removido: use App\Http\Controllers\CheckoutController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
@@ -30,11 +30,13 @@ Route::delete('cart/remove/{product}', [CartController::class, 'removeFromCart']
 
 
 // 4. ROTAS DE CHECKOUT (Protegidas por Login)
-// O middleware 'auth' garante que apenas usuários logados podem acessar.
+// ✅ Usando o CartController, onde implementamos a lógica.
 Route::middleware(['auth'])->group(function () {
-    Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('checkout', [CheckoutController::class, 'process'])->name('checkout.process');
-    Route::get('checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+    // 4.1 Mostrar o formulário de Checkout
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+    
+    // 4.2 Processar a finalização da compra
+    Route::post('/order/place', [CartController::class, 'placeOrder'])->name('order.place');
 });
 
 
@@ -49,9 +51,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Rotas de Dashboard (Removida a view padrão, mas mantida a rota por segurança)
+// Rotas de Dashboard (Redireciona para a Home)
 Route::get('/dashboard', function () {
-    return redirect('/'); // Redireciona o dashboard para a home
+    return redirect('/');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Inclui o resto das rotas de Login/Registro/Recuperação de senha
